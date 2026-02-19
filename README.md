@@ -1,7 +1,7 @@
 # Flight Delays Analysis & Predictive Modeling
 
 ## Project Overview
-This project provides a comprehensive analysis of flight delays by integrating flight schedule data with weather conditions. It covers the full data science pipeline, including data cleaning, feature engineering, exploratory data analysis (EDA), and the implementation of multiple machine learning classifiers to predict whether a flight will be delayed.
+This project provides a data-driven analysis of flight delays by integrating flight schedules with weather condition datasets. The goal is to identify key factors that lead to departure delays and to build a predictive model that can classify whether a flight will be delayed based on environmental and temporal features.
 
 ## Author
 * **Name:** Mohd Ayaan
@@ -9,53 +9,42 @@ This project provides a comprehensive analysis of flight delays by integrating f
 * **Academic Year:** Autumn 2025/26
 
 ## Project Structure
-The notebook is organized into three core tasks:
-1.  **Data Preparation and Characterisation:** Merging datasets, cleaning missing values, and engineering new features.
-2.  **Classification and Evaluation:** Training and comparing Logistic Regression, Decision Tree, and Random Forest models.
-3.  **Predictive Feature Analysis:** Analyzing the impact of distance, time, and weather on delay outcomes.
+The analysis follows a structured data science workflow divided into three main tasks:
+1.  **Data Preparation and Characterisation:** Merging datasets, handling missing values, and performing initial statistical summaries.
+2.  **Classification and Evaluation:** Building and testing multiple machine learning models to predict delay outcomes.
+3.  **Predictive Feature Analysis:** Diving deep into the specific features (like weather and time) that drive delays.
 
 ## Key Features & Methodology
 
 ### 1. Data Integration & Engineering
-* **Dataset Merging:** Combined `flights_schedule.csv` and `flight_conditions_outcomes.csv` using the unique `flight_id`.
-* **Feature Engineering:**
-    * **Temporal Features:** Extracted `dep_hour` and `day_of_week`; created a `weekend` flag.
-    * **Distance Categorization:** Binned flights into `short` (<300km), `medium` (300-800km), and `long` (>=800km) categories.
-    * **Weather Severity Score:** Created a composite numerical score by mapping and summing categorical precipitation and wind conditions.
-* **Target Variable:** Defined a binary `delayed` flag (True if delay ≥ 15 minutes).
+* **Dataset Merging:** Joined `flights_schedule.csv` and `flight_conditions_outcomes.csv` via the unique `flight_id`.
+* **Feature Engineering:** Developed custom features to enhance model performance:
+    * `dep_hour`: Extracted from timestamps to analyze peak delay times.
+    * `is_weekend`: Categorized flights based on the day of the week.
+    * `weather_severity_score`: A composite numerical metric derived from precipitation and wind conditions.
+    * `distance_cat`: Binned flights into Short, Medium, and Long-haul categories.
+* **Target Variable:** A binary `delayed` flag representing departures delayed by 15 minutes or more.
 
-### 2. Predictive Modeling & Logistic Regression
-The project evaluates three machine learning algorithms to classify flights as delayed or on-time:
-* **Logistic Regression:** Used as the primary baseline for binary classification.
-* **Decision Tree Classifier:** Implemented to capture non-linear relationships.
-* **Random Forest Classifier:** An ensemble method used to improve accuracy and reduce overfitting.
+### 2. Predictive Modeling: Logistic Regression & Ensembles
+The project evaluates three distinct machine learning algorithms:
+* **Logistic Regression:** Used as the baseline model for binary classification.
+* **Decision Tree Classifier:** Implemented to capture non-linear relationships and interactions between features.
+* **Random Forest Classifier:** An ensemble approach used to improve accuracy and generalizability while reducing overfitting.
 
-**Evaluation Metrics:**
-Models were evaluated using **Accuracy**, **Precision**, **Recall**, and **F1-Score**. A **Confusion Matrix** was generated for each to analyze how well the models handled the class imbalance (where on-time flights significantly outnumber delayed ones).
+**Evaluation:** Models were compared using **Accuracy**, **Precision**, **Recall**, and **F1-Score**, with a heavy focus on the **Confusion Matrix** to ensure the model successfully identifies delays despite the class imbalance.
 
 ### 3. Predictive Feature Analysis
-This section investigates the "why" behind the delays:
-* **Weather Impact:** Visualized the correlation between the composite `weather_severity` score and the likelihood of a delay.
-* **Distance Analysis:** Compared delay proportions across different flight distance categories.
-* **Temporal Trends:** Identified peak delay hours by analyzing the mean delay rate relative to the hour of departure.
+* **Weather Severity:** Quantified the direct link between high precipitation/wind levels and increased delay rates.
+* **Temporal Trends:** Identified specific hours of the day where congestion leads to higher probabilities of delay.
+* **Distance Correlation:** Analyzed if flight length correlates with punctuality.
 
 ## Technologies Used
-* **Language:** Python
-* **Data Handling:** `Pandas`, `NumPy`
-* **Visualization:** `Matplotlib`, `Seaborn`
-* **Machine Learning:** `Scikit-Learn`
+* **Python:** Primary programming language.
+* **Pandas & NumPy:** Data manipulation and cleanup.
+* **Scikit-Learn:** Machine learning modeling and evaluation.
+* **Matplotlib & Seaborn:** Data visualization.
 
-## How to Use
-1.  **Clone the Repository:**
-    ```bash
-    git clone [https://github.com/YOUR_USERNAME/flight-delay-analysis.git](https://github.com/YOUR_USERNAME/flight-delay-analysis.git)
-    ```
-2.  **Install Dependencies:**
-    ```bash
-    pip install pandas numpy matplotlib seaborn scikit-learn
-    ```
-3.  **Data Files:** Ensure `flights_schedule.csv` and `flight_conditions_outcomes.csv` are in the project folder.
-4.  **Run the Notebook:** Execute all cells in `assignment2_flight_delays.ipynb`.
-
-## Conclusions
-The analysis demonstrates that flight delays are strongly influenced by weather severity and departure timing. While the **Random Forest** and **Logistic Regression** models provide a strong foundation for prediction, future improvements could involve using **SMOTE** for better class balance or experimenting with **XGBoost** for higher precision.
+## Getting Started
+### Prerequisites
+```bash
+pip install pandas numpy matplotlib seaborn scikit-learn
